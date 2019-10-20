@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_shortcutpractice" default="compile.module.shortcutpractice">
+  <dirname property="module.shortcutpractice.basedir" file="${ant.file.module_shortcutpractice}"/>
+  
+  <property name="module.jdk.home.shortcutpractice" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.shortcutpractice" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.shortcutpractice" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.shortcutpractice" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="shortcutpractice.output.dir" value="${module.shortcutpractice.basedir}/out/production/Shortcutpractice"/>
+  <property name="shortcutpractice.testoutput.dir" value="${module.shortcutpractice.basedir}/out/test/Shortcutpractice"/>
+  
+  <path id="shortcutpractice.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="shortcutpractice.module.production.classpath">
+    <path refid="${module.jdk.classpath.shortcutpractice}"/>
+  </path>
+  
+  <path id="shortcutpractice.runtime.production.module.classpath">
+    <pathelement location="${shortcutpractice.output.dir}"/>
+  </path>
+  
+  <path id="shortcutpractice.module.classpath">
+    <path refid="${module.jdk.classpath.shortcutpractice}"/>
+    <pathelement location="${shortcutpractice.output.dir}"/>
+  </path>
+  
+  <path id="shortcutpractice.runtime.module.classpath">
+    <pathelement location="${shortcutpractice.testoutput.dir}"/>
+    <pathelement location="${shortcutpractice.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.shortcutpractice">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.shortcutpractice">
+    <patternset refid="excluded.from.module.shortcutpractice"/>
+  </patternset>
+  
+  <path id="shortcutpractice.module.sourcepath">
+    <dirset dir="${module.shortcutpractice.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.shortcutpractice" depends="compile.module.shortcutpractice.production,compile.module.shortcutpractice.tests" description="Compile module Shortcutpractice"/>
+  
+  <target name="compile.module.shortcutpractice.production" depends="register.custom.compilers" description="Compile module Shortcutpractice; production classes">
+    <mkdir dir="${shortcutpractice.output.dir}"/>
+    <javac2 destdir="${shortcutpractice.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.shortcutpractice}/javac">
+      <compilerarg line="${compiler.args.shortcutpractice}"/>
+      <bootclasspath refid="shortcutpractice.module.bootclasspath"/>
+      <classpath refid="shortcutpractice.module.production.classpath"/>
+      <src refid="shortcutpractice.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.shortcutpractice"/>
+    </javac2>
+    
+    <copy todir="${shortcutpractice.output.dir}">
+      <fileset dir="${module.shortcutpractice.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.shortcutpractice.tests" depends="register.custom.compilers,compile.module.shortcutpractice.production" description="compile module Shortcutpractice; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.shortcutpractice" description="cleanup module">
+    <delete dir="${shortcutpractice.output.dir}"/>
+    <delete dir="${shortcutpractice.testoutput.dir}"/>
+  </target>
+</project>

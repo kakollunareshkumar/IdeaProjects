@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Shortcutpractice:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Shortcutpractice_jar</output-path>
+    <root id="archive" name="Shortcutpractice.jar">
+      <element id="module-output" name="Shortcutpractice" />
+    </root>
+  </artifact>
+</component>
